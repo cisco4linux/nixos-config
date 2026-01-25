@@ -82,14 +82,14 @@
   };
 
   # Comin Service for GitOps updates
-  # services.comin = {
-  #   enable = true;
-  #   remotes = [{
-  #     name = "origin";
-  #     url = "https://github.com/cisco4linux/nixos-config.git";
-  #     branches.main.name = "main";
-  #   }];
-  # };
+  services.comin = {
+    enable = true;
+    remotes = [{
+      name = "origin";
+      url = "https://github.com/cisco4linux/nixos-config.git";
+      branches.main.name = "main";
+    }];
+  };
 
   # User account: cisco
   users.users.cisco = {
