@@ -139,30 +139,23 @@ services.displayManager.sddm = {
 
 # Enable the KDE Plasma Desktop Environment
   services.desktopManager.plasma6.enable = true;
+# Enable Plasma 6
+  services.desktopManager.plasma6.enable = true;
 
-  # High-priority SDDM configuration for Wayland autologin
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-    # Use 'settings' to write directly to the sddm.conf file
-    settings = {
-      Autologin = {
-        User = "cisco";
-        Session = "plasma"; # Try just "plasma" without .desktop
-      };
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      # Force the Autologin section into sddm.conf
+      extraConfig = ''
+        [Autologin]
+        User=cisco
+        Session=plasma.desktop
+      '';
     };
   };
 
-  # Explicitly set the default session to avoid SDDM asking
-  services.displayManager.defaultSession = "plasma";
-
-  # This is the generic NixOS autologin toggle
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "cisco";
-  };
-
-  # Keep KWallet unlock enabled for when autologin works
+  # Unlock KWallet automatically
   security.pam.services.sddm.enableKwallet = true;
 
   programs.firefox.enable = true;
