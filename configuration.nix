@@ -32,10 +32,10 @@
   services.desktopManager.plasma6.enable = true;
   
   # SDDM Configuration with Wayland and Forced Autologin
+  # English comment: Forced autologin via extraConfig to ensure sddm.conf is correctly populated
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    # Force the Autologin section into sddm.conf to fix login prompts
     extraConfig = ''
       [Autologin]
       User=cisco
@@ -46,13 +46,12 @@
   # Automatically unlock KWallet
   security.pam.services.sddm.enableKwallet = true;
 
-  # Keyboard layout settings
-  # Set to "us" so the key next to Enter produces # and ~ as printed on your keys
+  # Keyboard layout settings for UK
   services.xserver.xkb = {
-    layout = "us";
+    layout = "gb";
     variant = "";
   };
-  console.keyMap = "us";
+  console.keyMap = "uk";
 
   # NVIDIA Configuration (RTX 3060)
   nixpkgs.config.allowUnfree = true;
@@ -105,42 +104,3 @@
       insync
       onlyoffice-desktopeditors
       calibre
-      ghostty
-      fastfetch
-    ];
-  };
-
-  # System-wide packages
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    pciutils
-    htop
-    pipewire
-    nh
-  ];
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.symbols-only
-    nerd-fonts.jetbrains-mono
-  ];
-
-  # Automatic Updates from GitHub (Hourly)
-  system.autoUpgrade = {
-    enable = true;
-    flake = "github:cisco4linux/nixos-config";
-    dates = "hourly"; 
-  };
-
-  # Steam configuration
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
-  programs.firefox.enable = true;
-
-  system.stateVersion = "24.11";
-}
