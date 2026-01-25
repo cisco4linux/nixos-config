@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Bootloader settings
   boot.loader.systemd-boot.enable = true;
@@ -32,8 +29,22 @@
 
   # Graphics and Desktop Environment (KDE Plasma 6)
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  
+  # SDDM Configuration with Wayland and Forced Autologin
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    # Force the Autologin section into sddm.conf to fix login prompts
+    extraConfig = ''
+      [Autologin]
+      User=cisco
+      Session=plasma.desktop
+    '';
+  };
+
+  # Automatically unlock KWallet
+  security.pam.services.sddm.enableKwallet = true;
 
   services.xserver.xkb = {
     layout = "gb";
@@ -113,6 +124,7 @@
     nerd-fonts.jetbrains-mono
   ];
 
+  # Automatic Updates from GitHub (Hourly)
   system.autoUpgrade = {
     enable = true;
     flake = "github:cisco4linux/nixos-config";
@@ -123,42 +135,10 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true; # Fixed this line
+    dedicatedServer.openFirewall = true;
   };
-
-services.displayManager.sddm = {
-  enable = true;
-  wayland.enable = true;
-  settings = {
-    Autologin = {
-      Session = "plasma.desktop";
-      User = "cisco";
-    };
-  };
-};
-
-# Enable the KDE Plasma Desktop Environment
-  services.desktopManager.plasma6.enable = true;
-# Enable Plasma 6
-  services.desktopManager.plasma6.enable = true;
-
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      wayland.enable = true;
-      # Force the Autologin section into sddm.conf
-      extraConfig = ''
-        [Autologin]
-        User=cisco
-        Session=plasma.desktop
-      '';
-    };
-  };
-
-  # Unlock KWallet automatically
-  security.pam.services.sddm.enableKwallet = true;
 
   programs.firefox.enable = true;
 
   system.stateVersion = "24.11";
-} # Closed the file correctly
+}
