@@ -46,11 +46,13 @@
   # Automatically unlock KWallet
   security.pam.services.sddm.enableKwallet = true;
 
+  # Keyboard layout settings
+  # Set to "us" so the key next to Enter produces # and ~ as printed on your keys
   services.xserver.xkb = {
-    layout = "gb";
+    layout = "us";
     variant = "";
   };
-  console.keyMap = "uk";
+  console.keyMap = "us";
 
   # NVIDIA Configuration (RTX 3060)
   nixpkgs.config.allowUnfree = true;
