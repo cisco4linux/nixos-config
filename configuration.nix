@@ -142,6 +142,8 @@ services.displayManager.autoLogin = {
   user = "cisco";
 };
 
+  security.pam.services.sddm.enableKwallet = true;
+
   programs.firefox.enable = true;
 
   system.stateVersion = "24.11";
