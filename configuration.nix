@@ -94,7 +94,6 @@
       calibre
       ghostty
       fastfetch
-      vlc
     ];
   };
 
