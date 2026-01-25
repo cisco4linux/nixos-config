@@ -126,6 +126,22 @@
     dedicatedServer.openFirewall = true; # Fixed this line
   };
 
+services.displayManager.sddm = {
+  enable = true;
+  wayland.enable = true;
+  settings = {
+    Autologin = {
+      Session = "plasma.desktop";
+      User = "cisco";
+    };
+  };
+};
+
+services.displayManager.autoLogin = {
+  enable = true;
+  user = "cisco";
+};
+
   programs.firefox.enable = true;
 
   system.stateVersion = "24.11";
