@@ -137,10 +137,33 @@ services.displayManager.sddm = {
   };
 };
 
-services.displayManager.autoLogin = {
-  enable = true;
-  user = "cisco";
-};
+# Enable the KDE Plasma Desktop Environment
+  services.desktopManager.plasma6.enable = true;
+
+  # Configure SDDM with Wayland and Auto-login
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      settings = {
+        Autologin = {
+          Session = "plasma.desktop"; # Ensure this matches your session file
+          User = "cisco";
+        };
+      };
+    };
+
+    autoLogin = {
+      enable = true;
+      user = "cisco";
+    };
+  };
+
+  # Automatically unlock KWallet on login
+  security.pam.services.sddm.enableKwallet = true;
+
+  # Additional hint: Ensure KWallet uses the same password as your user
+  # services.kwallet.enable = true;
 
   security.pam.services.sddm.enableKwallet = true;
 
