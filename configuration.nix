@@ -116,12 +116,8 @@
 
   system.autoUpgrade = {
     enable = true;
-    flake = "github:cisco4linux/nixos-config"; # Tu propio repo
-    flags = [
-      "--update-input" "nixpkgs"
-      "--commit-lock-file"
-    ];
-    dates = "02:00"; # Se asegura de que se ejecute a diario, pero el intervalo puede ser menor
+    flake = "github:cisco4linux/nixos-config";
+    dates = "hourly"; 
   };
 
   # Steam configuration
