@@ -81,16 +81,6 @@
     options = "--delete-older-than 7d";
   };
 
-  # Comin Service for GitOps updates
-  services.comin = {
-    enable = true;
-    remotes = [{
-      name = "origin";
-      url = "https://github.com/cisco4linux/nixos-config.git";
-      branches.main.name = "main";
-    }];
-  };
-
   # User account: cisco
   users.users.cisco = {
     isNormalUser = true;
@@ -122,6 +112,16 @@
     nerd-fonts.symbols-only
     nerd-fonts.jetbrains-mono
   ];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:cisco4linux/nixos-config"; # Tu propio repo
+    flags = [
+      "--update-input" "nixpkgs"
+      "--commit-lock-file"
+    ];
+    dates = "02:00"; # Se asegura de que se ejecute a diario, pero el intervalo puede ser menor
+  };
 
   # Steam configuration
   programs.steam = {
