@@ -111,6 +111,7 @@
       calibre
       ghostty
       fastfetch
+      kdePackages.kcalc
     ];
   };
 
