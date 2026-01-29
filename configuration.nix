@@ -31,25 +31,26 @@
   services.xserver.enable = true;
   services.desktopManager.plasma6.enable = true;
   
-  # SDDM Configuration with Wayland and Forced Autologin
-  # English comment: Forced autologin via extraConfig to ensure sddm.conf is correctly populated
+  # SDDM Configuration (Updated for NixOS 26.05 Yarara)
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    extraConfig = ''
-      [Autologin]
-      User=cisco
-      Session=plasma.desktop
-    '';
+    settings = {
+      Autologin = {
+        User = "cisco";
+        Session = "plasma.desktop";
+      };
+    };
   };
 
   # Automatically unlock KWallet
   security.pam.services.sddm.enableKwallet = true;
 
-  # Keyboard layout settings for UK
+  # Keyboard layout settings for UK ISO
+  # English comment: Explicitly setting gb layout to avoid # and £ confusion
   services.xserver.xkb = {
     layout = "gb";
-    variant = "";
+    variant = ""; # Leave empty for standard ISO UK
   };
   console.keyMap = "uk";
 
@@ -125,7 +126,8 @@
     nerd-fonts.jetbrains-mono
   ];
 
-# Automatic Updates from GitHub (Hourly)
+  # Automatic Updates from GitHub (Hourly)
+  # English comment: Using --no-write-lock-file for remote GitHub flake updates
   system.autoUpgrade = {
     enable = true;
     flake = "github:cisco4linux/nixos-config";
@@ -140,7 +142,7 @@
     dedicatedServer.openFirewall = true;
   };
 
- # Enable KDE Connect
+  # KDE Connect
   programs.kdeconnect.enable = true; 
   programs.firefox.enable = true;
 
