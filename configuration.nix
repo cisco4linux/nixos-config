@@ -125,11 +125,12 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  # Automatic Updates from GitHub (Hourly)
+# Automatic Updates from GitHub (Hourly)
   system.autoUpgrade = {
     enable = true;
     flake = "github:cisco4linux/nixos-config";
-    dates = "hourly"; 
+    dates = "hourly";
+    flags = [ "--no-write-lock-file" ];
   };
 
   # Steam configuration
