@@ -45,13 +45,17 @@
 
   # Automatically unlock KWallet
   security.pam.services.sddm.enableKwallet = true;
+  security.pam.services.login.enableKwallet = true;
 
-  # Keyboard layout settings for UK ISO
-  # English comment: Explicitly setting gb layout to avoid # and £ confusion
+# Keyboard layout settings for UK ISO
+  # English comment: Forced pc105 model to ensure # key (next to Enter) works correctly
   services.xserver.xkb = {
     layout = "gb";
-    variant = ""; # Leave empty for standard ISO UK
+    variant = ""; 
+    model = "pc105"; 
   };
+  
+  # Set console keymap to match
   console.keyMap = "uk";
 
   # NVIDIA Configuration (RTX 3060)
