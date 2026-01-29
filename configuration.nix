@@ -104,3 +104,44 @@
       insync
       onlyoffice-desktopeditors
       calibre
+      ghostty
+      fastfetch
+    ];
+  };
+
+  # System-wide packages
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+    pciutils
+    htop
+    pipewire
+    nh
+  ];
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
+  ];
+
+  # Automatic Updates from GitHub (Hourly)
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:cisco4linux/nixos-config";
+    dates = "hourly"; 
+  };
+
+  # Steam configuration
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
+ # Enable KDE Connect
+  programs.kdeconnect.enable = true; 
+  programs.firefox.enable = true;
+
+  system.stateVersion = "26.05";
+}
