@@ -123,11 +123,9 @@
     nh
     ryubing
     heroic
-    bottles
     protonup-qt
     wineWowPackages.stable
     mangohud
-    goverlay
   ];
 
   # Fonts
