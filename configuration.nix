@@ -47,16 +47,15 @@
   security.pam.services.sddm.enableKwallet = true;
   security.pam.services.login.enableKwallet = true;
 
-# Keyboard layout settings for UK ISO
-  # English comment: Forced pc105 model to ensure # key (next to Enter) works correctly
+  # Keyboard layout settings for UK ISO
+  # English comment: Forced pc105 and exportConfig to fix # vs £ issues on UK keyboards
   services.xserver.xkb = {
     layout = "gb";
     variant = ""; 
     model = "pc105"; 
   };
-  
-  # Set console keymap to match
-  console.keyMap = "uk";
+  services.xserver.exportConfiguration = true;
+  console.useXkbConfig = true;
 
   # NVIDIA Configuration (RTX 3060)
   nixpkgs.config.allowUnfree = true;
@@ -102,7 +101,7 @@
   users.users.cisco = {
     isNormalUser = true;
     description = "cisco";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" ];
     packages = with pkgs; [
       discord
       zapzap
@@ -121,8 +120,14 @@
     vim
     pciutils
     htop
-    pipewire
     nh
+    ryujinx
+    heroic
+    bottles
+    protonup-qt
+    wineWowPackages.stable
+    mangohud
+    goverlay
   ];
 
   # Fonts
@@ -140,14 +145,17 @@
     flags = [ "--no-write-lock-file" ];
   };
 
-  # Steam configuration
+  # Gaming Features
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
+  
+  programs.gamemode.enable = true;
+  programs.nix-ld.enable = true;
 
-  # KDE Connect
+  # Extras
   programs.kdeconnect.enable = true; 
   programs.firefox.enable = true;
 
