@@ -121,7 +121,7 @@
     pciutils
     htop
     nh
-    ryujinx
+    ryubing
     heroic
     bottles
     protonup-qt
