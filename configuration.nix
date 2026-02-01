@@ -126,7 +126,14 @@
     protonup-qt
     wineWowPackages.stable
     mangohud
+    transmission_4-qt
   ];
+
+  # Firewall bittorrent
+  networking.firewall = {
+    allowedTCPPorts = [ 51413 ];
+    allowedUDPPorts = [ 51413 ];
+  };
 
   # Fonts
   fonts.packages = with pkgs; [
