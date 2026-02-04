@@ -129,6 +129,7 @@
     wineWowPackages.stable
     mangohud
     transmission_4-qt
+    unrar
   ];
 
   # Firewall bittorrent
