@@ -71,9 +71,9 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    # English comment: Additional packages for better hardware acceleration on Wayland
+    # English comment: Fixed renamed package vaapiVdpau -> libva-vdpau-driver
     extraPackages = with pkgs; [
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
       nvidia-vaapi-driver
     ];
