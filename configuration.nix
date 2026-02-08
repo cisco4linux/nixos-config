@@ -71,6 +71,12 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    # English comment: Additional packages for better hardware acceleration on Wayland
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+      nvidia-vaapi-driver
+    ];
   };
 
   # Sound and Bluetooth
@@ -132,6 +138,12 @@
     unrar
   ];
 
+  # Environment variables
+  environment.sessionVariables = {
+    # English comment: Force Firefox to use Wayland natively
+    MOZ_ENABLE_WAYLAND = "1";
+  };
+
   # Firewall bittorrent
   networking.firewall = {
     allowedTCPPorts = [ 51413 ];
@@ -165,7 +177,17 @@
 
   # Extras
   programs.kdeconnect.enable = true; 
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    # English comment: Force hardware acceleration and fix sandbox issues for Google Earth
+    preferences = {
+      "gfx.webrender.all" = true;
+      "layers.acceleration.force-enabled" = true;
+      "webgl.force-enabled" = true;
+      "widget.dmabuf.force-enabled" = true;
+      "security.sandbox.content.level" = 4;
+    };
+  };
 
   system.stateVersion = "26.05";
 }
