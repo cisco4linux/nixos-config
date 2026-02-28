@@ -91,6 +91,12 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  # Virtualization settings
+  # English comment: Enable libvirtd daemon and Virt-Manager for Desert OS virtualization
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+
   # Services
   services.printing.enable = true;
   services.teamviewer.enable = true;
@@ -107,7 +113,8 @@
   users.users.cisco = {
     isNormalUser = true;
     description = "cisco";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" ];
+    # English comment: Added libvirtd group for local virtualization management
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
     packages = with pkgs; [
       discord
       zapzap
