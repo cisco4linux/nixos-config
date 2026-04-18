@@ -126,7 +126,6 @@
       kdePackages.kcalc
       # English comment: Native KDE video player based on libmpv
       haruna
-      anydesk
     ];
   };
 
